@@ -4,51 +4,59 @@ var express = require('express'),
 	fs = require('fs'),
 	contents = fs.readFileSync("test.txt");
 
-// function start(resp) {
-//     resp.writeHead(200, {
-//         "Content-Type": "text/html"
-//     });
-//     fs.readFile(filename, "utf8", function(err, data) {
-//         if (err) throw err;
-//         resp.write(data);
-//         resp.end();
-//     });
-// }
 
 // Set view engine to ejs
 app.set('view engine', 'ejs');
 
-// var vegetables = ["carrots", "peas", "cucumber", "lettuce"];
 
 
 
-// // "GET" request to '/' runs the function  below
-// app.get('/',function (req, res){
-// //this will repsond with hello world!
-// 	res.render('index', {veggies: vegetables});
 
+app.get('/:math/:a/:b', function (req, res){
+	var math = req.params.math,
+		a = parseFloat(req.params.a),
+		b = parseFloat(req.params.b);
+	if(math === "add"){
+		math = "+";
+	} else if (math === "sub"){
+		math = "-";
+	} else if (math === "mult"){
+		math = "*";
+	} else if (math === "div"){
+		math = "/";
+	}
+
+	var c = eval(a + math + b);
+
+	res.render('answer', {ans: c});
+});
+
+
+
+// app.get('/add/:a/:b', function (req, res){
+// 	var c = parseFloat(req.params.a) + parseFloat(req.params.b);
+// 	res.render('answer', {ans: c});
 // });
 
-// "GET" request to '/' runs the function  below
-// app.get('/',function (req, res){
-// //this will repsond with hello world!
-// 	res.render('index', {name: "Donte"});
-
+// app.get('/sub/:a/:b', function (req, res){
+// 	var c = parseFloat(req.params.a) - parseFloat(req.params.b);
+// 	res.render('answer', {ans: c});
 // });
 
-// app.get('/veggies', function (req,res){
-// 	res.send(vegetables.join(","));
+// app.get('/mult/:a/:b', function (req, res){
+// 	var c = parseFloat(req.params.a) * parseFloat(req.params.b);
+// 	res.render('answer',{ans: c});
 // });
 
-// app.get('/hello/:name', function (req, res){
-// 	res.send('Hello,  ' + req.params.name);
-
+// app.get('/div/:a/:b', function (req, res){
+// 	var c = parseFloat(req.params.a) / parseFloat(req.params.b);
+// 	res.render('answer', {ans: c});
 // });
 
-// app.get('/hi', function (req,res){
-// 	var name = req.query.name;
-// 	res.send('Hello,' + name);
-// });
+
+
+
+
 
 
 
