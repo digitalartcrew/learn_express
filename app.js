@@ -9,9 +9,6 @@ var express = require('express'),
 app.set('view engine', 'ejs');
 
 
-
-
-
 app.get('/:math/:a/:b', function (req, res){
 	var math = req.params.math,
 		a = parseFloat(req.params.a),
@@ -24,8 +21,10 @@ app.get('/:math/:a/:b', function (req, res){
 		math = "*";
 	} else if (math === "div"){
 		math = "/";
+	}else{
+		consol.log("Input add, sub, mult, or div");
 	}
-
+	
 	var c = eval(a + math + b);
 
 	res.render('answer', {ans: c});
